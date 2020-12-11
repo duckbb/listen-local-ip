@@ -11,9 +11,9 @@ import (
 var etime int
 
 func main() {
-	//etime = flag.Int("time", 3600, "monitoy interval ")
-	flag.IntVar(&etime, "t", 3600, "monitoy interval ")
+	flag.IntVar(&etime, "t", 10, "monitoy interval ")
 	flag.Parse()
+	Ipserver.Init()
 	var wg sync.WaitGroup
 	ticker := time.NewTicker(time.Second * time.Duration(etime))
 	for {

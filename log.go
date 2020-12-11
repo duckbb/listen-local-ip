@@ -11,15 +11,19 @@ import (
 
 var fileName string = "./ip.txt"
 var Log *log.Logger
+var debug = true
 
-func init() {
+func Init() {
 	fileName := "info.log"
 	logFile, err := os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalln("open file error !")
 	}
-	Log = log.New(io.MultiWriter(os.Stderr, logFile), "", log.Ldate|log.Ltime|log.Lshortfile)
-
+	if debug {
+		Log = log.New(io.MultiWriter(os.Stderr, logFile), "", log.Ldate|log.Ltime|log.Lshortfile)
+	} else {
+		Log = log.New(io.MultiWriter(logFile), "", log.Ldate|log.Ltime|log.Lshortfile)
+	}
 }
 
 func isIp(str string) (bool, error) {
